@@ -11,3 +11,9 @@
 ##### ensuite j'ai abordé les models est controllers mais ils sont encore vide j'ai pas commençé le code .
 
 ##### une bréve documentation sur les dossiers et fichiers de l'architecture .
+
+# Day 3 : 18/02/2025
+
+##### Au cours de cette journée je me suis documentée sur les eloquent relationships et je l'ai implementé dans mon code et suite au live coding presenté par Abdelkbir HADOUI j'ai pu consolider ma compréhension des informations que j'avais acquises précédemment.
+
+##### Cette journée je vais finir l'authentification si dieu le veut .

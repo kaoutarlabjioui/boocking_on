@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Salle extends Model
 {
     use HasFactory;
+
+
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function reservation()
+    {
+        return $this->haseMany(Reservation::class);
+    }
 }
