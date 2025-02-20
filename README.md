@@ -12,8 +12,12 @@
 
 ##### une bréve documentation sur les dossiers et fichiers de l'architecture .
 
-# Day 3 : 18/02/2025
+# Day 3 : 19/02/2025
 
 ##### Au cours de cette journée je me suis documentée sur les eloquent relationships et je l'ai implementé dans mon code et suite au live coding presenté par Abdelkbir HADOUI j'ai pu consolider ma compréhension des informations que j'avais acquises précédemment.
 
 ##### Cette journée je vais finir l'authentification si dieu le veut .
+
+# Day 4 : 20/02/2025 
+
+#####  j'ai resolu le probleme du relation et j'ai affiché les salle et les users.

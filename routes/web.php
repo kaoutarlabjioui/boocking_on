@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SalleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +34,8 @@ Route::get('/login',function(){
 // Route::post('/Auth/register',[AuthController::class,'register'])->name('register');
 // Route::post('/Auth/login',[AuthController::class,'login'])->name('login');
 
+// Route::view('/salles', 'salles');
+Route::post('/salles/create',[SalleController::class,'store'])->name('salleCreate');
+Route::get('/salles/showSalles',[SalleController::class,'showSalles']);
 
+Route::get('/users/showUsers',[UserController::class,'showUsers']);

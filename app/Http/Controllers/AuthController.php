@@ -52,7 +52,7 @@ class AuthController extends Controller
             $user = Auth::user();
             session(['user_id'=>$user->id,'user_fname'=>$user->fname, 'user_lname'=>$user->lname]);
             if($user->role_id === 1){
-                return redirect()->route('show.salles');
+                return redirect()->route('home');
             }else{
                 return redirect()->route('show.salles.reservation');
             }

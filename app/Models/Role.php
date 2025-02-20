@@ -12,7 +12,7 @@ protected $filable=['role_name','description'];
 
 public function users()
 {
-    return $this->belongsToMany(User::class);
+    return $this->hasOne(User::class);
 }
 
 
