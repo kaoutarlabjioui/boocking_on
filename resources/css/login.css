@@ -35,7 +35,7 @@
     border-radius: 16px;
     box-shadow: var(--box-shadow);
     width: 100%;
-    max-width: 550px;
+    max-width: 480px;
     overflow: hidden;
     transform: translateY(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -132,6 +132,36 @@
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
   }
 
+  .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .remember-me {
+    display: flex;
+    align-items: center;
+  }
+
+  .remember-me input {
+    width: auto;
+    margin-right: 8px;
+  }
+
+  .forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .forgot-password:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+  }
+
   button {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
@@ -144,7 +174,6 @@
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 5px 15px rgba(114, 9, 183, 0.2);
-    margin-top: 15px;
   }
 
   button:hover {
@@ -173,6 +202,31 @@
     text-decoration: underline;
   }
 
+  .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f5f7fa;
+    border: 1px solid var(--input-border);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .social-btn:hover {
+    background-color: #eef1f6;
+    transform: translateY(-2px);
+  }
+
   @media (max-width: 600px) {
     .container {
       max-width: 100%;
@@ -187,19 +241,23 @@
     }
   }
 
-  /* Add some icons */
-  .icon-user::before {
-    content: "👤";
-  }
-
-  .icon-phone::before {
-    content: "📱";
-  }
-
+  /* Icons */
   .icon-email::before {
     content: "✉️";
   }
 
   .icon-password::before {
     content: "🔒";
+  }
+
+  .icon-google::before {
+    content: "G";
+  }
+
+  .icon-apple::before {
+    content: "A";
+  }
+
+  .icon-microsoft::before {
+    content: "M";
   }

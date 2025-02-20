@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href=".css">
+  <link rel="stylesheet" href="../css/app.css">
   <title>Conference Room Booking Registration</title>
   </head>
 <body>
@@ -13,12 +13,13 @@
       <p>Create your account to start booking conference rooms</p>
     </div>
     <div class="form-content">
-      <form id="registrationForm" action="/register" method="post">
+      <form id="registrationForm" action="{{route('registerUser') }}" method="post">
+        @CSRF
         <div class="form-group">
           <label for="firstName">First Name</label>
           <div class="input-wrapper">
             <span class="input-icon icon-user"></span>
-            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+            <input type="text" id="firstName" name="fname" placeholder="Enter your first name" required>
           </div>
         </div>
 
@@ -26,7 +27,7 @@
           <label for="lastName">Last Name</label>
           <div class="input-wrapper">
             <span class="input-icon icon-user"></span>
-            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+            <input type="text" id="lastName" name="lname" placeholder="Enter your last name" required>
           </div>
         </div>
 
@@ -60,10 +61,11 @@
         <button type="submit">Create Account</button>
 
         <div class="form-footer">
-          Already have an account? <a href="/login">Sign in</a>
+          Already have an account? <a href="{{route('login')}}">Sign in</a>
         </div>
       </form>
     </div>
   </div>
+  <script src="../js/register.js"></script>
   </body>
   </html>

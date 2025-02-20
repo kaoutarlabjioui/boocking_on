@@ -1,3 +1,5 @@
+
+// Add focus/blur events for animation
 const inputs = document.querySelectorAll('input');
 inputs.forEach(input => {
   input.addEventListener('focus', () => {
@@ -7,10 +9,4 @@ inputs.forEach(input => {
     input.parentElement.parentElement.classList.remove('focus');
   });
 });
-
-
-
-
-
-
 
