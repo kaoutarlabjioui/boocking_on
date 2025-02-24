@@ -18,10 +18,10 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->enum('status', ['pending', 'en cours', 'terminer'])->default('pending');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('salle_id')->unsigned();
+            $table->Integer('user_id')->unsigned();
+            $table->Integer('salle_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('salle_id')->references('id')->on('Salles')->onDelete('cascade');
+            $table->foreign('salle_id')->references('id')->on('salles')->onDelete('cascade');
             $table->timestamps();
         });
     }

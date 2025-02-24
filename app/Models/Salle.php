@@ -9,7 +9,7 @@ class Salle extends Model
 {
     use HasFactory;
 
-protected $filable=['salle_name','description'];
+    protected $fillable = ['salle_name', 'description', 'capacite', 'prix'];
 
     public function users()
     {

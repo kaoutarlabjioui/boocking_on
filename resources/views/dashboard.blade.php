@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.9.0/dist/css/coreui.min.css" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.9.0/dist/js/coreui.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
       --sidebar-width: 250px;
@@ -430,19 +431,19 @@
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="/salles" class="nav-link active">
             <i class="bi bi-door-open"></i>
             <span>Salles</span>
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/reservation/showreservation" class="nav-link">
             <i class="bi bi-calendar-event"></i>
             <span>Réservations</span>
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/users/showUsers" class="nav-link">
             <i class="bi bi-people"></i>
             <span>Utilisateurs</span>
           </a>
@@ -460,6 +461,11 @@
             <span class="notification-badge">3</span>
           </a>
         </div>
+        <li class="nav-item">
+                    <a class="nav-link" href="/logout" onclick="return confirm('Are you sure you want to logout?')">
+                        <i class="bi bi-box-arrow-left"></i> Logout
+                    </a>
+         </li>
       </nav>
     </div>
 
@@ -495,99 +501,12 @@
 
       <!-- Rooms Management -->
       <div class="section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h2>Liste des Salles</h2>
-          <button class="btn btn-primary" id="addRoomBtn">
-            <i class="bi bi-plus"></i> Ajouter une Salle
-          </button>
-        </div>
-        <table class="rooms-table" id="roomsTable">
-          <thead>
-            <tr>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($users as $user)
-            <tr>
-              <td>{{$user->fname}}</td>
-              <td>{{$user->lname}}</td>
-              <td>{{$user->phone}}</td>
-              <td>{{$user->email}}</td>
-              <td><span class="status-badge status-libre">{{$user->role->role_name}}</span></td>
-              <td class="action-cell">
-                <button class="action-btn reserve-btn">Réserver</button>
-                <button class="action-btn edit-btn">Modifier</button>
-                <button class="action-btn delete-btn">Supprimer</button>
-              </td>
-            </tr>
-            @endforeach
 
-          </tbody>
-        </table>
-
+    @yield('content')
       </div>
     </div>
   </div>
 
-
-
-
-
-  <!-- Add/Edit Room Modal -->
-  <div class="modal" id="roomModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">Ajouter une Salle</h3>
-        <button class="close-btn" id="closeModal">&times;</button>
-      </div>
-      <form id="roomForm">
-        <div class="form-group">
-          <label for="roomNumber">Numéro de Salle</label>
-          <input type="text" id="roomNumber" class="form-control" placeholder="Ex: S101" required>
-        </div>
-        <div class="form-group">
-          <label for="roomName">Nom de la Salle</label>
-          <input type="text" id="roomName" class="form-control" placeholder="Ex: Salle de Conférence A" required>
-        </div>
-        <div class="form-group">
-          <label for="roomCapacity">Capacité</label>
-          <input type="number" id="roomCapacity" class="form-control" placeholder="Nombre de personnes" required>
-        </div>
-        <div class="form-group">
-          <label for="roomFloor">Étage</label>
-          <select id="roomFloor" class="form-control" required>
-            <option value="Rez-de-chaussée">Rez-de-chaussée</option>
-            <option value="1er étage">1er étage</option>
-            <option value="2ème étage">2ème étage</option>
-            <option value="3ème étage">3ème étage</option>
-            <option value="4ème étage">4ème étage</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="roomEquipment">Équipements</label>
-          <input type="text" id="roomEquipment" class="form-control" placeholder="Ex: Projecteur, WiFi, Tableau blanc">
-        </div>
-        <div class="form-group">
-          <label for="roomStatus">Statut</label>
-          <select id="roomStatus" class="form-control" required>
-            <option value="libre">Libre</option>
-            <option value="occupee">Occupée</option>
-            <option value="maintenance">En maintenance</option>
-          </select>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn cancel-btn" id="cancelBtn">Annuler</button>
-          <button type="submit" class="btn btn-primary" id="saveBtn">Enregistrer</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!-- Reservation Modal -->
   <div class="modal" id="reservationModal">
@@ -628,176 +547,25 @@
       </form>
     </div>
   </div>
-
   <script>
-    // DOM Elements
-    const addRoomBtn = document.getElementById('addRoomBtn');
-    const roomModal = document.getElementById('roomModal');
-    const closeModal = document.getElementById('closeModal');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const roomForm = document.getElementById('roomForm');
-    const modalTitle = document.getElementById('modalTitle');
-    const saveBtn = document.getElementById('saveBtn');
-    const searchInput = document.getElementById('searchInput');
-    const roomsTable = document.getElementById('roomsTable');
-    const reservationModal = document.getElementById('reservationModal');
-    const selectedRoomInput = document.getElementById('selectedRoom');
-    const closeReservationModal = document.getElementById('closeReservationModal');
-    const cancelReservationBtn = document.getElementById('cancelReservationBtn');
-    const reservationForm = document.getElementById('reservationForm');
+        const modal = document.getElementById("jobModal");
+        const openModal = document.getElementById("openModal");
+        const closeModal = document.getElementById("closeModal");
+        const projectsContainer = document.getElementById("projects");
 
-    // Event Listeners
-    addRoomBtn.addEventListener('click', openAddRoomModal);
-    closeModal.addEventListener('click', closeRoomModal);
-    cancelBtn.addEventListener('click', closeRoomModal);
-    roomForm.addEventListener('submit', saveRoom);
-    closeReservationModal.addEventListener('click', closeReservationModalFunc);
-    cancelReservationBtn.addEventListener('click', closeReservationModalFunc);
-    reservationForm.addEventListener('submit', confirmReservation);
-    searchInput.addEventListener('input', filterRooms);
+        openModal.addEventListener("click", () => {
+            modal.classList.remove("hidden");
 
-    // Add event listeners to table buttons
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const row = this.closest('tr');
-        openEditRoomModal(row);
-      });
-    });
+        });
 
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const row = this.closest('tr');
-        deleteRoom(row);
-      });
-    });
+        closeModal.addEventListener("click", () => {
+            modal.classList.add("hidden");
 
-    document.querySelectorAll('.reserve-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        if (!this.disabled) {
-          const row = this.closest('tr');
-          openReservationModal(row);
-        }
-      });
-    });
+        });
 
-    // Functions
-    function openAddRoomModal() {
-      modalTitle.textContent = 'Ajouter une Salle';
-      roomForm.reset();
-      saveBtn.textContent = 'Ajouter';
-      roomModal.classList.add('active');
-    }
 
-    function openEditRoomModal(row) {
-      modalTitle.textContent = 'Modifier une Salle';
-      saveBtn.textContent = 'Mettre à jour';
 
-      // Get data from the row
-      const cells = row.cells;
-      document.getElementById('roomNumber').value = cells[0].textContent;
-      document.getElementById('roomName').value = cells[1].textContent;
-      document.getElementById('roomCapacity').value = parseInt(cells[2].textContent);
-      document.getElementById('roomFloor').value = cells[3].textContent;
-      document.getElementById('roomEquipment').value = cells[4].textContent;
+    </script>
+</body>
+</html>
 
-      // Set status based on badge class
-      const statusBadge = cells[5].querySelector('.status-badge');
-      if (statusBadge.classList.contains('status-libre')) {
-        document.getElementById('roomStatus').value = 'libre';
-      } else if (statusBadge.classList.contains('status-occupee')) {
-        document.getElementById('roomStatus').value = 'occupee';
-      } else if (statusBadge.classList.contains('status-maintenance')) {
-        document.getElementById('roomStatus').value = 'maintenance';
-      }
-
-      roomModal.classList.add('active');
-    }
-
-    function closeRoomModal() {
-      roomModal.classList.remove('active');
-    }
-
-    function saveRoom(e) {
-      e.preventDefault();
-
-      // Get form values
-      const roomNumber = document.getElementById('roomNumber').value;
-      const roomName = document.getElementById('roomName').value;
-      const roomCapacity = document.getElementById('roomCapacity').value;
-      const roomFloor = document.getElementById('roomFloor').value;
-      const roomEquipment = document.getElementById('roomEquipment').value;
-      const roomStatus = document.getElementById('roomStatus').value;
-
-      // Show success message
-      Swal.fire({
-        title: modalTitle.textContent === 'Ajouter une Salle' ? 'Salle ajoutée!' : 'Salle modifiée!',
-        text: `La salle ${roomName} a été ${modalTitle.textContent === 'Ajouter une Salle' ? 'ajoutée' : 'mise à jour'} avec succès.`,
-        icon: 'success',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#2ecc71'
-      });
-
-      closeRoomModal();
-    }
-
-    function deleteRoom(row) {
-      const roomNumber = row.cells[0].textContent;
-      const roomName = row.cells[1].textContent;
-
-      Swal.fire({
-        title: 'Êtes-vous sûr?',
-        text: `Voulez-vous vraiment supprimer la salle ${roomName} (${roomNumber})?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, supprimer',
-        cancelButtonText: 'Annuler',
-        confirmButtonColor: '#e74c3c',
-        cancelButtonColor: '#3085d6',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Here would go the actual deletion code
-          row.remove();
-
-          Swal.fire(
-            'Supprimé!',
-            `La salle ${roomName} a été supprimée.`,
-            'success'
-          );
-        }
-      });
-    }
-
-    function openReservationModal(row) {
-      const roomNumber = row.cells[0].textContent;
-      const roomName = row.cells[1].textContent;
-      selectedRoomInput.value = `${roomNumber} - ${roomName}`;
-
-      // Set default date to today
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('reservationDate').value = today;
-
-      reservationModal.classList.add('active');
-    }
-
-    function closeReservationModalFunc() {
-      reservationModal.classList.remove('active');
-    }
-
-    function confirmReservation(e) {
-      e.preventDefault();
-
-      // Get form values
-      const selectedRoom = document.getElementById('selectedRoom').value;
-      const reservationDate = document.getElementById('reservationDate').value;
-      const startTime = document.getElementById('startTime').value;
-      const endTime = document.getElementById('endTime').value;
-      const purpose = document.getElementById('purpose').value;
-
-      // Format date for display
-      const formattedDate = new Date(reservationDate).toLocaleDateString('fr-FR');
-
-      Swal.fire({
-        title: 'Réservation confirmée!',
-
-       })
-    }

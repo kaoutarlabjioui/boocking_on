@@ -46,19 +46,34 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-        $getUser = $request->only('email','password');
+        $request->validate([
+            'email'=>'required|email',
+            'password'=>'required',
 
-        if(Auth::attempt($getUser)){
-            $user = Auth::user();
-            session(['user_id'=>$user->id,'user_fname'=>$user->fname, 'user_lname'=>$user->lname]);
-            if($user->role_id === 1){
-                return redirect()->route('home');
-            }else{
-                return redirect()->route('show.salles.reservation');
-            }
+        ]);
+                 $getUser=User::where('email' , $request->email)->first();
+        if(!$getUser)
+        {
+            return back()->with('failed','Email or password incorrect');
         }
-        return redirect()->route('login')->with('error','Invalide email r password');
+        if (!Hash::check($request->password,$getUser->password))
+        {
+            return back()->with('failed','Email or password is incorrect');
+        }
 
+        Auth::login($getUser);
+        // dd($getUser);
+
+        return redirect('/salles/showSalles');
+
+
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
 

@@ -15,12 +15,7 @@ class UserController extends Controller
     public function showUsers(){
         $users = User::get();
 
-        foreach($users as $user){
-            // dd($user->role());
-           $role =  Role::find($user->role_id);
-        }
-
-        return view('users' , compact('users'));
+        return view('content.users' , compact('users'));
     }
 
 

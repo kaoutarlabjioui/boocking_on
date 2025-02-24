@@ -8,33 +8,48 @@ use Illuminate\Http\Request;
 class SalleController extends Controller
 {
     public function index(){
+        $salles = Salle::get();
+        return view('sallehome',compact("salles"));
 
     }
 
     public function store(Request $request)
     {
-       $salle = $request->validate(['salle_name'=>'required','description'=>'required','capacite'=>'required','prix'=>'required']);
+      $request->validate(['salle_name'=>'required','description'=>'required','capacite'=>'required','prix'=>'required']);
+        // var_dump($request);
+        // die;
+        Salle::create($request->all());
 
-        $createsalle = Salle::create($salle);
-
-        redirect()->route('salleCreate');
-
-
-    }
-
-    public function destroy($id){
+       return back();
 
     }
 
-    public function update($id){
+    public function destroy(Request $request){
 
+        if($request->id){
+            $salle = Salle::find($request->id);
+            $salle->delete();
+        }
+        return back()->with('succ','salle deleted ');
     }
+
+    public function update(Request $request){
+        $salle = Salle::find($request->id);
+        $salle->update($request->all());
+        // dd($salle);
+        return redirect('/salles/showSalles');
+    }
+     public   function FormUpdate(Request $request)  {
+    $salle = Salle::find($request->id);
+    // dd($salle);
+    return view('updatesalleForme',compact('salle')) ;
+   }
 
     public function showSalles()
     {
         $salles = Salle::get();
 
-        return view('salles' , compact('salles'));
+        return view('content.salles' , compact('salles'));
     }
 
 }
